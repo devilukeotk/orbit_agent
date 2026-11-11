@@ -10,6 +10,9 @@ public enum WindowFocusResult { Focused, Closed, Rejected }
 
 public static class ApplicationWindows
 {
+    public static IReadOnlyList<ApplicationWindow> ListOpen() =>
+        Enumerate().Where(window => window.ProcessId != Environment.ProcessId).ToArray();
+
     public static IReadOnlyList<ApplicationWindow> Find(string executable, Func<string, bool>? matchTitle = null) =>
         Enumerate(matchTitle)
             .Where(window => string.Equals(window.Executable, executable, StringComparison.OrdinalIgnoreCase))
@@ -22,7 +25,7 @@ public static class ApplicationWindows
             .Where(app => new[] { app.Id, app.DisplayName }.Concat(app.Aliases).Any(name => SameName(name, query)))
             .Select(app => Environment.ExpandEnvironmentVariables(app.Executable))
             .ToArray();
-        var windows = Enumerate().Where(window => window.ProcessId != Environment.ProcessId).ToArray();
+        var windows = ListOpen();
         var exact = windows.Where(window =>
         {
             if (window.Executable is not { } executable)
@@ -106,7 +109,7 @@ public static class ApplicationWindows
         return IsSameWindow(window) ? WindowFocusResult.Rejected : WindowFocusResult.Closed;
     }
 
-    private static bool IsSameWindow(ApplicationWindow window) =>
+    public static bool IsSameWindow(ApplicationWindow window) =>
         IsWindowVisible(window.Handle) &&
         GetWindowThreadProcessId(window.Handle, out var processId) != 0 &&
         processId == window.ProcessId &&

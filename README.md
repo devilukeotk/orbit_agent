@@ -48,6 +48,8 @@ Type `open Notepad` or `เปิด Notepad`. Orbit starts the app when the com
 
 Type `สลับไปที่ Paint` or `switch to VS Code` to focus an open window. Orbit searches app names and window titles. This works without adding apps to the launch allowlist, and aliases already in the allowlist also work. If several windows match, pick one by its title. Orbit restores a minimized window and confirms the switch after Windows moves focus to it.
 
+Choose **Inspect UI** and select an open window to see the control tree exposed by Windows UI Automation. The local inspection lists control types, accessible names, and capabilities such as **Invoke** or **Text**. It reads control metadata and leaves text field values and document contents alone. The result depends on what the selected app exposes.
+
 Open **Settings** and select the server's content root, normally `src/Orbit.Server`. Edit and save the JSON in the **AI profiles** or **Authorized applications** tab. The editor validates the active profile and application entries before saving. The server reads the new settings on its next request.
 
 To run the Phase 2 developer workflow, choose **Build & test solution**, select `Orbit.slnx`, and approve the displayed workspace. Orbit opens the solution's folder in the configured VS Code, verifies that a new workspace window is visible, runs `dotnet build`, and then runs `dotnet test --no-build` after a successful build. The dashboard shows command output and exit codes. **Emergency Stop** in the dashboard or system tray cancels the workflow and stops its running build or test process tree. The VS Code window stays open.

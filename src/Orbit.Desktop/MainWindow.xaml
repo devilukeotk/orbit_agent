@@ -44,6 +44,7 @@
       <Button x:Name="BuildAndTest" Content="Build &amp; test solution" Click="BuildAndTest_Click" Padding="10,6" />
       <Button x:Name="StopDeveloperWorkflow" Content="Emergency Stop" Click="StopDeveloperWorkflow_Click"
               IsEnabled="False" Margin="8,0,0,0" Padding="10,6" />
+      <Button Content="Inspect UI" Click="InspectWindow_Click" Margin="8,0,0,0" Padding="10,6" />
     </StackPanel>
   </Grid>
 </Window>

@@ -26,6 +26,7 @@ public partial class MainWindow : Window
     private CancellationTokenSource? _developerCancellation;
     private Task? _developerTask;
     private bool _busy;
+    private Task<WindowInspection>? _inspection;
     private bool _isExiting;
     private static readonly string SettingsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Orbit", "desktop.json");
@@ -48,6 +49,59 @@ public partial class MainWindow : Window
     }
 
     private async void Send_Click(object sender, RoutedEventArgs e) => await SendAsync();
+
+    private async void InspectWindow_Click(object sender, RoutedEventArgs e)
+    {
+        if (_busy)
+            return;
+        if (_inspection is { IsCompleted: false })
+        {
+            Append("Orbit: Windows UI Automation is still waiting for the previous window.");
+            return;
+        }
+
+        _busy = true;
+        try
+        {
+            var windows = await Task.Run(ApplicationWindows.ListOpen);
+            if (windows.Count == 0)
+            {
+                Append("Orbit: There are no open windows to inspect.");
+                return;
+            }
+
+            var picker = new WindowPicker(windows, thai: false, action: "Inspect") { Owner = this };
+            if (picker.ShowDialog() != true || picker.Selection is not { } selected)
+                return;
+
+            SetState("Thinking");
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(8));
+            var token = deadline.Token;
+            _inspection = Task.Run(() => WindowInspector.Read(selected, token), token);
+            try
+            {
+                var snapshot = await _inspection.WaitAsync(token);
+                new InspectionWindow(selected.Title, snapshot) { Owner = this }.ShowDialog();
+            }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+                Append("Orbit: UI inspection timed out. The target app may be busy.");
+            }
+            catch (Exception error) when (error is System.Windows.Automation.ElementNotAvailableException
+                or System.Runtime.InteropServices.COMException or UnauthorizedAccessException
+                or InvalidOperationException or ArgumentException)
+            {
+                Append(ApplicationWindows.IsSameWindow(selected)
+                    ? "Orbit: Windows UI Automation could not read the selected window."
+                    : "Orbit: The selected window closed or is no longer available.");
+            }
+        }
+        finally
+        {
+            _busy = false;
+            SetState("Idle");
+        }
+    }
 
     private async void BuildAndTest_Click(object sender, RoutedEventArgs e)
     {

@@ -53,3 +53,7 @@ The dashboard handles `สลับไปที่ <ชื่อแอป>` and 
 A Windows smoke test focused and restored Paint with no configuration file, then exercised the Thai VS Code alias, the window picker, cancellation, an unmatched name, and a closed target.
 
 A WPF smoke test with an isolated server and the real Notepad++ Start Menu shortcut verified no match, cancellation, one-time launch, saving an approval, direct reuse of the saved approval, and SQLite audit events. The discovery path supports shortcuts that resolve to an existing executable.
+
+**Inspect UI** uses the shared window picker and reads the selected HWND with Windows UI Automation on a worker thread. The result stays in a local dialog and shows control metadata and available patterns. The scan caps the tree at 200 controls and 12 levels and gives the dashboard an eight-second wait limit. Future interaction can use the selected window and supported patterns to scope actions.
+
+A WPF smoke test verified the Notepad editor metadata without its document text, Calculator button capabilities, selection between two windows in one process, and the error for a window closed after selection.

@@ -6,7 +6,7 @@ namespace Orbit.Desktop;
 
 public partial class WindowPicker : Window
 {
-    public WindowPicker(IReadOnlyList<ApplicationWindow> windows, bool thai)
+    public WindowPicker(IReadOnlyList<ApplicationWindow> windows, bool thai, string? action = null)
     {
         InitializeComponent();
         if (thai)
@@ -14,6 +14,8 @@ public partial class WindowPicker : Window
             Title = "เลือกหน้าต่าง";
             FocusButton.Content = "สลับหน้าต่าง";
         }
+        if (action is not null)
+            FocusButton.Content = action;
         Windows.ItemsSource = windows;
         Loaded += (_, _) => Windows.Focus();
     }
