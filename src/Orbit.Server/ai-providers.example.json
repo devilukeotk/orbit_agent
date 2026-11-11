@@ -1,0 +1,11 @@
+{
+  "activeProfile": "mock",
+  "profiles": {
+    "mock": { "provider": "mock" },
+    "openai": { "provider": "openai", "model": "", "keyRef": "OPENAI_PRIMARY" },
+    "openai-secondary": { "provider": "openai", "model": "", "keyRef": "OPENAI_SECONDARY" },
+    "gemini": { "provider": "gemini", "model": "", "keyRef": "GEMINI_PRIMARY" },
+    "claude": { "provider": "claude", "model": "", "keyRef": "CLAUDE_PRIMARY" },
+    "local": { "provider": "local", "model": "", "baseUrl": "http://127.0.0.1:11434/v1/" }
+  }
+}

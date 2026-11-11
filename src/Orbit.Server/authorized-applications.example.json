@@ -1,0 +1,17 @@
+{
+  "applications": [
+    {
+      "id": "notepad",
+      "displayName": "Notepad",
+      "executable": "notepad.exe",
+      "arguments": []
+    },
+    {
+      "id": "visual-studio-code",
+      "displayName": "Visual Studio Code",
+      "executable": "%LOCALAPPDATA%\\Programs\\Microsoft VS Code\\Code.exe",
+      "aliases": ["VS Code", "วีเอสโค้ด", "วีเอส โค้ด"],
+      "arguments": []
+    }
+  ]
+}

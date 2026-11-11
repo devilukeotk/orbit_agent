@@ -1,0 +1,25 @@
+<Window x:Class="Orbit.Desktop.ApplicationApproval"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Approve application launch" Width="660" Height="430" MinWidth="520" MinHeight="320"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+  <Grid Margin="16">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <TextBlock x:Name="Instructions" Text="Select a Start Menu app and review what Orbit will run."
+               Margin="0,0,0,8" TextWrapping="Wrap" />
+    <ListBox x:Name="Candidates" Grid.Row="1" DisplayMemberPath="DisplayName"
+             SelectionChanged="Candidates_SelectionChanged" AutomationProperties.Name="Start Menu applications" />
+    <TextBox x:Name="Details" Grid.Row="2" IsReadOnly="True" TextWrapping="Wrap"
+             VerticalScrollBarVisibility="Auto" Margin="0,8,0,0" AutomationProperties.Name="Launch details" />
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+      <Button x:Name="CancelButton" Content="Cancel" IsCancel="True" Padding="12,6" />
+      <Button x:Name="OpenOnce" Content="Open once" IsEnabled="False" Click="OpenOnce_Click" Padding="12,6" Margin="8,0,0,0" />
+      <Button x:Name="Remember" Content="Allow and open" IsEnabled="False" Click="Remember_Click" Padding="12,6" Margin="8,0,0,0" />
+    </StackPanel>
+  </Grid>
+</Window>

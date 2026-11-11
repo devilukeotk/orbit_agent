@@ -1,0 +1,16 @@
+{
+  "applications": [
+    {
+      "id": "notepad",
+      "displayName": "Notepad",
+      "executable": "notepad.exe",
+      "arguments": []
+    },
+    {
+      "id": "visual-studio-code",
+      "displayName": "Visual Studio Code",
+      "executable": "C:\\Program Files\\Microsoft VS Code\\Code.exe",
+      "arguments": []
+    }
+  ]
+}

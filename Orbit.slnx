@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="src/Orbit.Contracts/Orbit.Contracts.csproj" />
+  <Project Path="src/Orbit.Core/Orbit.Core.csproj" />
+  <Project Path="src/Orbit.Infrastructure/Orbit.Infrastructure.csproj" />
+  <Project Path="src/Orbit.WindowsAgent/Orbit.WindowsAgent.csproj" />
+  <Project Path="src/Orbit.Desktop/Orbit.Desktop.csproj" />
+  <Project Path="src/Orbit.Server/Orbit.Server.csproj" />
+  <Project Path="tests/Orbit.Core.Tests/Orbit.Core.Tests.csproj" />
+  <Project Path="tests/Orbit.WindowsAgent.Tests/Orbit.WindowsAgent.Tests.csproj" />
+</Solution>
